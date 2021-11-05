@@ -1,0 +1,6 @@
+{
+  "name": "ServiceTokenStorage",
+  "connector": "memory",
+  "localStorage": "",
+  "file": ""
+}

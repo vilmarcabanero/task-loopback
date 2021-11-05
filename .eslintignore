@@ -1,0 +1,6 @@
+node_modules/
+dist/
+coverage/
+ecosystem.config.js
+setConfig.js
+index.js

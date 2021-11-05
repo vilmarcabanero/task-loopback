@@ -1,0 +1,12 @@
+{
+  "include": ["dist"],
+  "exclude": ["dist/__tests__/", "dist/*.js", "dist/strategies/keycloak.strategy.*", "dist/providers/auth-strategy.provider.*", "dist/utils/env-datasource.utils.*", "dist/interceptors/logging.interceptor.*", "dist/interceptors/caching.interceptor.*", "dist/services/caching.*", "dist/observers/cache.observer.*"],
+  "extension": [".js", ".ts"],
+  "reporter": ["text", "html", "lcov"],
+  "check-coverage": true,
+  "exclude-after-remap": false,
+  "branches": 70,
+  "lines": 70,
+  "functions": 70,
+  "statements": 70
+}
