@@ -27,11 +27,11 @@ export class Todo extends Entity {
   })
   isActive?: boolean;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  userId: string;
+  // @property({
+  //   type: 'string',
+  //   required: true,
+  // })
+  // userId: string;
 
   @property({
     type: 'date',
