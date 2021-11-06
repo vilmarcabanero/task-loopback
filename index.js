@@ -2,6 +2,11 @@ const chalk = require('chalk');
 const application = require('./dist');
 const configJson = require('./config.json');
 
+const express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
+
 module.exports = application;
 
 if (require.main === module) {

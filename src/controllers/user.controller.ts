@@ -54,7 +54,7 @@ export class UserController {
     @repository(UserRepository) protected userRepository: UserRepository,
   ) {}
 
-  @post('/users/login')
+  @post('/auth/login')
   async login(
     @requestBody(CredentialsRequestBody) credentials: Credentials,
   ): Promise<{token: string}> {
@@ -81,7 +81,7 @@ export class UserController {
     return foundUser;
   }
 
-  @post('/signup')
+  @post('/auth/register')
   async signUp(
     @requestBody()
     newUserRequest: NewUserRequest,
