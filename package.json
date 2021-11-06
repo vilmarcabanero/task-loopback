@@ -54,7 +54,8 @@
     "lb4:relation": "node node_modules/\\@loopback/cli/bin/cli-main.js relation",
     "prepublishOnly": "npm run test",
     "restart": "pm2 kill && pm2 start ecosystem.config.js",
-    "start:watch": "pm2 start ecosystem.config.js --watch"
+    "start:watch": "pm2 start ecosystem.config.js --watch",
+    "dev": "tsc-watch --target es2017 --outDir ./dist --onSuccess \"node .\""
   },
   "repository": {
     "type": "git"
@@ -92,7 +93,8 @@
     "parse-bearer-token": "1.0.1",
     "passport-strategy": "1.0.0",
     "request": "2.88.0",
-    "request-promise": "4.2.4"
+    "request-promise": "4.2.4",
+    "tsc-watch": "^4.5.0"
   },
   "devDependencies": {
     "@loopback/build": "^7.0.2",

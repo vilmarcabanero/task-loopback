@@ -44,6 +44,7 @@ export class PingController {
   /**
    * Map to `GET /ping` using the @get decorator
    */
+  
   @get('/ping', {
     responses: {
       '200': PING_RESPONSE,
