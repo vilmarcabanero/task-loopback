@@ -1,6 +1,6 @@
 {
   "host": "0.0.0.0",
-  "port": 2000,
+  "port": 4000,
   "basePath": "",
   "useDetailedLogging": true,
   "useCache": false,

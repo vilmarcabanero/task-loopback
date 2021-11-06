@@ -12,7 +12,7 @@ import {CustomReject} from './interfaces/customError.interface';
 const config = require('../package.json');
 
 import {JsonBodyParser} from '@loopback/rest/dist/body-parsers/body-parser.json';
-import {AuthenticationBindings, AuthenticateFn} from '@loopback/authentication';
+// import {AuthenticationBindings, AuthenticateFn} from '@loopback/authentication';
 
 const SequenceActions = RestBindings.SequenceActions;
 
@@ -39,8 +39,8 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.PARSE_PARAMS) protected parseParams: ParseParams,
     @inject(SequenceActions.INVOKE_METHOD) protected invoke: InvokeMethod,
     @inject(SequenceActions.SEND) public send: Send,
-    @inject(AuthenticationBindings.AUTH_ACTION)
-    protected authenticateRequest: AuthenticateFn,
+    // @inject(AuthenticationBindings.AUTH_ACTION)
+    // protected authenticateRequest: AuthenticateFn,
     @inject('error.actions.custom')
     protected reject: CustomReject,
   ) {}
@@ -50,7 +50,7 @@ export class MySequence implements SequenceHandler {
       const {request, response} = context;
       const route = this.findRoute(request);
 
-      await this.authenticateRequest(request);
+      // await this.authenticateRequest(request);
 
       /**
        * Cleanup of null data
