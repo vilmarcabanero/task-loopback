@@ -12,9 +12,14 @@ import {MySequence} from './sequence';
 import {CustomErrorProvider} from './providers/custom-error.provider';
 import {
   AuthenticationComponent,
-  AuthenticationBindings,
+  // AuthenticationBindings,
 } from '@loopback/authentication';
-import {AuthStrategyProvider} from './providers';
+import {
+  JWTAuthenticationComponent,
+  UserServiceBindings,
+} from '@loopback/authentication-jwt';
+import {MongoDsDataSource} from './datasources';
+// import {AuthStrategyProvider} from './providers';
 import {HealthComponent, HealthBindings} from '@loopback/extension-health';
 import {
   EnvDatasourceHelper,
@@ -35,6 +40,13 @@ export class Lb4StarterApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
+    // Mount authentication system
+    this.component(AuthenticationComponent);
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    this.dataSource(MongoDsDataSource, UserServiceBindings.DATASOURCE_NAME);
+
     /**
      * Set up environemnt configurations
      */
@@ -43,14 +55,14 @@ export class Lb4StarterApplication extends BootMixin(
       const eds = new EnvDatasourceHelper(env);
       const dsConfigs = eds.getConfig();
       dsConfigs.forEach((config) => {
-        console.log(config)
+        console.log(config);
         this.bind('datasources.config.' + config.name).to(config.config);
         this.bind('datasources.' + config.name).toClass(config.datasource);
       });
     }
 
     this.component(AuthenticationComponent);
-    this.bind(AuthenticationBindings.STRATEGY).toProvider(AuthStrategyProvider);
+    // this.bind(AuthenticationBindings.STRATEGY).toProvider(AuthStrategyProvider);
 
     /**
      * Prometheus metrics

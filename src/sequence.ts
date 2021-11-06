@@ -13,6 +13,12 @@ const config = require('../package.json');
 
 import {JsonBodyParser} from '@loopback/rest/dist/body-parsers/body-parser.json';
 // import {AuthenticationBindings, AuthenticateFn} from '@loopback/authentication';
+import {
+  AuthenticateFn,
+  AuthenticationBindings,
+  AUTHENTICATION_STRATEGY_NOT_FOUND,
+  USER_PROFILE_NOT_FOUND,
+} from '@loopback/authentication';
 
 const SequenceActions = RestBindings.SequenceActions;
 
@@ -41,6 +47,8 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.SEND) public send: Send,
     // @inject(AuthenticationBindings.AUTH_ACTION)
     // protected authenticateRequest: AuthenticateFn,
+    @inject(AuthenticationBindings.AUTH_ACTION)
+    protected authenticateRequest: AuthenticateFn,
     @inject('error.actions.custom')
     protected reject: CustomReject,
   ) {}
@@ -51,7 +59,7 @@ export class MySequence implements SequenceHandler {
       const route = this.findRoute(request);
 
       // await this.authenticateRequest(request);
-
+      await this.authenticateRequest(request);
       /**
        * Cleanup of null data
        */
@@ -88,6 +96,14 @@ export class MySequence implements SequenceHandler {
         this.send(response, formattedResult);
       }
     } catch (err) {
+      // make the statusCode 401
+      if (
+        err.code === AUTHENTICATION_STRATEGY_NOT_FOUND ||
+        err.code === USER_PROFILE_NOT_FOUND
+      ) {
+        Object.assign(err, {statusCode: 401 /* Unauthorized */});
+      }
+
       if (process.env.npm_lifecycle_event === 'test') {
         this.reject(context, err);
       } else {
